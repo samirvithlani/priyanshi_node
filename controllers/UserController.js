@@ -1,43 +1,78 @@
-const userModel = require("../models/UserModel")
+const userModel = require("../models/UserModel");
 
-const getAllUsers = async(req,res)=>{
-
-        const users =await userModel.find() //[]
-        if(users && users.length>0){
-            res.status(200).json({
-                message:"user found..",
-                data:users
-            })
-        }
-        else{
-            res.status(404).json({
-                message:"no user found "
-            })
-        }
-
-}
+const getAllUsers = async (req, res) => {
+  const users = await userModel.find(); //[]
+  if (users && users.length > 0) {
+    res.status(200).json({
+      message: "user found..",
+      data: users,
+    });
+  } else {
+    res.status(404).json({
+      message: "no user found ",
+    });
+  }
+};
 
 //req.body..
-const addUser = async(req,res)=>{
-
-    try{
-    const savedUser = await userModel.create(req.body)
+const addUser = async (req, res) => {
+  try {
+    const savedUser = await userModel.create(req.body);
     res.status(201).json({
-        message:"user created successfully!!",
-        data:savedUser
-    })
-    }catch(err){
+      message: "user created successfully!!",
+      data: savedUser,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "error while saving user",
+      err: err,
+    });
+  }
+};
 
-        res.status(500).json({
-            message:"error while saving user",
-            err:err
-        })
+const deleteUser = async (req, res) => {
+  try {
+    const deletedUser = await userModel.findByIdAndDelete(req.params.id);
+    if (deletedUser) {
+      res.status(200).json({
+        message: "user deleted successfully!!",
+      });
+    } else {
+      res.status(404).json({
+        message: "user not found to  delete",
+      });
     }
+  } catch (err) {
+    res.status(500).json({
+      message: "error while delete user",
+      err,
+    });
+  }
+};
 
-
-
-}
-module.exports={
-    getAllUsers,
-    addUser
-}
+const updateUser = async (req, res) => {
+  try {
+    const updatedUser = await userModel.findByIdAndUpdate(req.params.id,req.body,{new:true});
+    if (updatedUser) {
+      res.status(200).json({
+        message: "e update user sucess",
+        data: updatedUser,
+      });
+    } else {
+      res.status(404).json({
+        message: "error while update user user not found..",
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: "error while update user",
+      err,
+    });
+  }
+};
+module.exports = {
+  getAllUsers,
+  addUser,
+  deleteUser,
+  updateUser
+};
