@@ -1,7 +1,9 @@
 const userModel = require("../models/UserModel");
 
 const getAllUsers = async (req, res) => {
-  const users = await userModel.find(); //[]
+  //const users = await userModel.find(); //[]
+  //const users = await userModel.find().populate("roleId"); //[]
+  const users = await userModel.find().populate("roleId","name"); //[]
   if (users && users.length > 0) {
     res.status(200).json({
       message: "user found..",

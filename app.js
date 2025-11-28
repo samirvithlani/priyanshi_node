@@ -6,9 +6,12 @@ app.use(express.json()) // global middelware to accept json data..
 //require routes
 
 const userRoutes = require("./routes/UserRoutes")
-
 //http:localhost:3000/user/users
 app.use("/user",userRoutes)
+
+
+const roleROutes = require("./routes/RoleRoutes")
+app.use("/role",roleROutes)
 
 
 

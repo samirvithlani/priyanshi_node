@@ -21,6 +21,10 @@ const userModel = new Schema({
     bloodGroup:{
         enum:["A+","A-","B+","B-"],
         type:String
+    },
+    roleId:{
+        type:Schema.Types.ObjectId,
+        ref:"role"
     }
 
 })
