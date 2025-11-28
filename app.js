@@ -19,6 +19,7 @@ app.use("/role",roleROutes)
 
 
 
+
 mongoose.connect("mongodb://127.0.0.1:27017/priyanshi_backup").then((data)=>{
     console.log("datbase connected successfully !!")
 })

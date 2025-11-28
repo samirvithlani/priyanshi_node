@@ -72,9 +72,37 @@ const updateUser = async (req, res) => {
     });
   }
 };
+
+//if hobby is present it should  not add..
+//$Pull check if hobby is avaialble then remove..
+const addHobby = async(req,res)=>{
+  const id = req.params.id;
+  const hobby = req.body.hobby;
+
+  try{
+
+    const updatedUser = await userModel.findByIdAndUpdate(id,{$push:{hobbies:hobby}},{new:true})
+    res.status(201).json({
+      message:"new hobby added..",
+      data:updatedUser
+    })
+
+
+
+  }catch(err){
+    console.log(err)
+    res.status(500).json({
+      message:"error while adding hobby",
+      err:err
+    })
+  }
+
+
+}
 module.exports = {
   getAllUsers,
   addUser,
   deleteUser,
-  updateUser
+  updateUser,
+  addHobby
 };
