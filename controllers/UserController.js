@@ -1,5 +1,5 @@
 const userModel = require("../models/UserModel");
-
+//require.. mailUril
 const getAllUsers = async (req, res) => {
   //const users = await userModel.find(); //[]
   //const users = await userModel.find().populate("roleId"); //[]
@@ -20,6 +20,8 @@ const getAllUsers = async (req, res) => {
 const addUser = async (req, res) => {
   try {
     const savedUser = await userModel.create(req.body);
+    //savedUser.email 
+    //sendMail(savedUser.email,"","")
     res.status(201).json({
       message: "user created successfully!!",
       data: savedUser,
