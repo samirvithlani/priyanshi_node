@@ -1,5 +1,6 @@
 const userModel = require("../models/UserModel");
 //require.. mailUril
+//update
 const getAllUsers = async (req, res) => {
   //const users = await userModel.find(); //[]
   //const users = await userModel.find().populate("roleId"); //[]
