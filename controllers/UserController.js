@@ -60,7 +60,7 @@ const updateUser = async (req, res) => {
     const updatedUser = await userModel.findByIdAndUpdate(req.params.id,req.body,{new:true});
     if (updatedUser) {
       res.status(200).json({
-        message: "e update user sucess",
+        message: "update user sucess",
         data: updatedUser,
       });
     } else {

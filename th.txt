@@ -6,3 +6,10 @@ app.js
 npm i express mongoose nodemailer path multer
 
 app.js --> routes -->controller
+
+app --> routes -->controller function call
+
+     routes -->end point url --> controller logic
+
+
+/users --> filter [middlware...] <--getUsers() <<-- controller
