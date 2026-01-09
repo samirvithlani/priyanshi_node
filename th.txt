@@ -13,3 +13,5 @@ app --> routes -->controller function call
 
 
 /users --> filter [middlware...] <--getUsers() <<-- controller
+
+schema validation :
