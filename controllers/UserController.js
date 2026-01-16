@@ -1,4 +1,5 @@
 const userModel = require("../models/UserModel");
+const bcrypt = require("bcrypt")
 //require.. mailUril
 //update
 const getAllUsers = async (req, res) => {
@@ -20,7 +21,10 @@ const getAllUsers = async (req, res) => {
 //req.body..
 const addUser = async (req, res) => {
   try {
-    const savedUser = await userModel.create(req.body);
+    //password... encrypt
+    const hashedPassword = bcrypt.hashSync(req.body.password,12)
+    //const savedUser = await userModel.create(req.body);
+    const savedUser = await userModel.create({...req.body,password:hashedPassword});
     //savedUser.email 
     //sendMail(savedUser.email,"","")
     res.status(201).json({
@@ -102,10 +106,38 @@ const addHobby = async(req,res)=>{
 
 
 }
+
+const loginUser = async(req,res)=>{
+  //email ,password 
+  const userFromEmail = await userModel.findOne({email:req.body.email})
+  //db -->user --> password --> encrypted
+  if(userFromEmail){
+
+    if(bcrypt.compareSync(req.body.password,userFromEmail.password)){
+      res.json({
+        message:"login success",
+        data:userFromEmail
+      })
+    }
+    else{
+      res.json({
+        message:"invalid credentials",
+      })
+    } 
+
+  }
+  else{
+    res.json({
+      message:"user not found signup first.."
+    })
+  }
+
+}
 module.exports = {
   getAllUsers,
   addUser,
   deleteUser,
   updateUser,
-  addHobby
+  addHobby,
+  loginUser
 };
