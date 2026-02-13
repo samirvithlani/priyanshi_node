@@ -15,3 +15,26 @@ app --> routes -->controller function call
 /users --> filter [middlware...] <--getUsers() <<-- controller
 
 schema validation :
+
+
+auth:
+
+web app : email password --> auth
+authentication:
+     register: --> login --> cred
+authorization:
+     access rights --> page -->
+
+API secure : email password
+
+email-password -->login [obj] --> key
+
+token --> fronend --> API -->if secure -->
+
+auth2:
+JWT token :
+Bearer Token:
+
+npm i jsonwebtoken
+
+global middlware add..

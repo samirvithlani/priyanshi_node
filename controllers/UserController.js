@@ -1,5 +1,8 @@
 const userModel = require("../models/UserModel");
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const secret ="samir"
+
 //require.. mailUril
 //update
 const getAllUsers = async (req, res) => {
@@ -114,9 +117,13 @@ const loginUser = async(req,res)=>{
   if(userFromEmail){
 
     if(bcrypt.compareSync(req.body.password,userFromEmail.password)){
+      //auth
+      const token = jwt.sign(userFromEmail.toObject(),secret,{expiresIn:60})
+
       res.json({
         message:"login success",
-        data:userFromEmail
+        //data:userFromEmail
+        token:token
       })
     }
     else{
