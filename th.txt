@@ -38,3 +38,12 @@ Bearer Token:
 npm i jsonwebtoken
 
 global middlware add..
+<<<---------------------->>>
+
+backend:
+api --> forgtot password : -->POST --> req.body email-->
+email -->db check --> if present
+token gen -->
+email --> mail -> token -->
+
+idea: --> user priyanshi@yopmail.com 

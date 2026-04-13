@@ -23,11 +23,12 @@ const getAllUsers = async (req, res) => {
 
 //req.body..
 const addUser = async (req, res) => {
+  console.log("req.file...",req.file) // -->req.file if we ahave applied multer middleware..
   try {
     //password... encrypt
     const hashedPassword = bcrypt.hashSync(req.body.password,12)
     //const savedUser = await userModel.create(req.body);
-    const savedUser = await userModel.create({...req.body,password:hashedPassword});
+    const savedUser = await userModel.create({...req.body,password:hashedPassword,profilePic:req.file.path});
     //savedUser.email 
     //sendMail(savedUser.email,"","")
     res.status(201).json({
@@ -140,6 +141,7 @@ const loginUser = async(req,res)=>{
   }
 
 }
+
 module.exports = {
   getAllUsers,
   addUser,

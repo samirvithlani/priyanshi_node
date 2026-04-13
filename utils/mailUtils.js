@@ -5,7 +5,7 @@ const mailSend = async(to,subject,text)=>{
     const transporter = mailer.createTransport({
         service:"gmail",
         auth:{
-            pass:"",
+            pass:"zvdy tpun nqst vzns",
             user:"pythonforsamir@gmail.com"
         },
         

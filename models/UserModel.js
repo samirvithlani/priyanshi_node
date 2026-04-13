@@ -25,6 +25,9 @@ const userModel = new Schema({
     roleId:{
         type:Schema.Types.ObjectId,
         ref:"role"
+    },
+    profilePic:{
+        type:String
     }
 
 })
