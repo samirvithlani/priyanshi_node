@@ -28,6 +28,9 @@ const userModel = new Schema({
     },
     profilePic:{
         type:String
+    },
+     profilePics:{
+        type:[String]
     }
 
 })

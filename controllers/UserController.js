@@ -2,6 +2,7 @@ const userModel = require("../models/UserModel");
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const secret ="samir"
+const uploadToCloudinary = require("../utils/CloudinaryConfig")
 
 //require.. mailUril
 //update
@@ -28,7 +29,12 @@ const addUser = async (req, res) => {
     //password... encrypt
     const hashedPassword = bcrypt.hashSync(req.body.password,12)
     //const savedUser = await userModel.create(req.body);
-    const savedUser = await userModel.create({...req.body,password:hashedPassword,profilePic:req.file.path});
+    //const savedUser = await userModel.create({...req.body,password:hashedPassword,profilePic:req.file.path});
+
+    const cloudinaryRes = await uploadToCloudinary(req.file.path) //{}
+    console.log(cloudinaryRes) // {secure_url}
+
+    const savedUser = await userModel.create({...req.body,password:hashedPassword,profilePic:cloudinaryRes.secure_url});
     //savedUser.email 
     //sendMail(savedUser.email,"","")
     res.status(201).json({
@@ -42,6 +48,30 @@ const addUser = async (req, res) => {
     });
   }
 };
+
+// const addUser = async (req, res) => {
+//   console.log("req.file...",req.files) // -->req.file if we ahave applied multer middleware..
+//   var filePaths = req.files.map((file)=>file.path) //array
+//   console.log(filePaths)
+//   try {
+//     //password... encrypt
+//     const hashedPassword = bcrypt.hashSync(req.body.password,12)
+//     //const savedUser = await userModel.create(req.body);
+//     //const savedUser = await userModel.create({...req.body,password:hashedPassword,profilePic:req.file.path});
+//     const savedUser = await userModel.create({...req.body,password:hashedPassword,profilePics:filePaths});
+//     //savedUser.email 
+//     //sendMail(savedUser.email,"","")
+//     res.status(201).json({
+//       message: "user created successfully!!",
+//       data: savedUser,
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       message: "error while saving user",
+//       err: err,
+//     });
+//   }
+// };
 
 const deleteUser = async (req, res) => {
   try {
